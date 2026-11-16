@@ -1,0 +1,74 @@
+# TANDAV optical telemetry
+# Default is the bench rig. For the boat, set source.kind: rtsp and point
+# rtsp_url at the recorder's LCD substream so the 24/7 recording keeps the
+# sensor; the pipeline only consumes a copy.
+
+source:
+  kind: synthetic          # synthetic | rtsp | gst | v4l2 | file
+  realtime: true
+  fps: 60
+  page_cycle_s: 0          # >0 cycles the synthetic LCD to FUEL for gate tests
+  width: 400               # must equal the hardware-windowed/calibrated frame
+  height: 200
+  fourcc: GREY             # OV9281 monochrome
+  device: /dev/video0
+  rtsp_url: rtsp://127.0.0.1:8554/tandav-lcd
+  backend: auto            # auto | gst | ffmpeg
+  gst_latency_ms: 0
+  file: ""
+  gst_pipeline: ""
+  v4l2_controls:
+    auto_exposure: 1       # manual
+    exposure_absolute: 40  # 4 ms (1/250 s) in common UVC 100 us units; verify
+    gain: 0
+
+calibration:
+  path: calibration
+
+alignment:
+  enabled: true
+  scale: 0.5               # ECC runs on a half-size anchor patch
+  max_iters: 25
+  eps: 0.0001
+  min_score: 0.55
+
+ocr:
+  page_width: 200          # page gate thumbnail
+  page_height: 100
+  page_min_score: 0.38
+  page_margin: 0.05
+  page_search_pad: 6
+  template_min_score: 0.45
+  template_margin: 0.03
+  vote_need: 3             # N of M consecutive identical frames
+  vote_frames: 5
+
+filter:
+  speed:
+    max_accel: 17.0        # km/h per second; TANDAV physical envelope
+    resolution: 1.0
+    process_noise: 1.2
+    measure_noise: 0.8
+    gate_sigmas: 4.0
+    reject_to_reset: 5
+    min: 0
+    max: 120
+  rpm:
+    max_accel: 6000.0      # rpm per second
+    resolution: 10.0
+    process_noise: 300.0
+    measure_noise: 80.0
+    gate_sigmas: 4.0
+    reject_to_reset: 5
+    min: 0
+    max: 10000
+
+telemetry:
+  host: 255.255.255.255    # broadcast on the boat LAN; use GCS IP for unicast
+  port: 47001
+  hz: 20                   # heartbeat; new readings send immediately
+  dscp: 0                  # e.g. 46 for EF if the switch honours it
+
+runtime:
+  stats_interval_s: 5
+  log_level: INFO

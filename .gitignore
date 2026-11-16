@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE / Editor artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Transient runtime logs and dump images
+runtime/*.png
+runtime/*.log
+runtime/cal_init_test/
+runtime/user_video/
+!runtime/.gitkeep
+
+# Temporary scratch
+scratch/

@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "frame": {
+    "width": 400,
+    "height": 200
+  },
+  "anchor": {
+    "rect": [
+      8,
+      6,
+      120,
+      30
+    ],
+    "file": "anchor.png"
+  },
+  "pages": [
+    {
+      "name": "MAIN_TELEMETRY",
+      "file": "page_MAIN_TELEMETRY.png",
+      "mask": [
+        [
+          90,
+          38,
+          270,
+          84
+        ],
+        [
+          38,
+          148,
+          150,
+          32
+        ]
+      ],
+      "checks": [
+        [
+          14,
+          10,
+          72,
+          24
+        ],
+        [
+          310,
+          121,
+          46,
+          17
+        ],
+        [
+          35,
+          131,
+          32,
+          14
+        ]
+      ],
+      "fields": {
+        "speed": {
+          "rect": [
+            90,
+            38,
+            270,
+            84
+          ],
+          "glyph_set": "speed",
+          "decimals": 0,
+          "min": 0,
+          "max": 99
+        },
+        "rpm": {
+          "rect": [
+            38,
+            148,
+            150,
+            32
+          ],
+          "glyph_set": "rpm",
+          "decimals": 0,
+          "min": 0,
+          "max": 9990
+        }
+      }
+    },
+    {
+      "name": "FUEL",
+      "file": "page_FUEL.png",
+      "mask": [],
+      "checks": [
+        [
+          14,
+          10,
+          72,
+          24
+        ],
+        [
+          49,
+          58,
+          92,
+          30
+        ],
+        [
+          49,
+          155,
+          112,
+          15
+        ]
+      ],
+      "fields": {}
+    }
+  ]
+}
